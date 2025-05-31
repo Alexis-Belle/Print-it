@@ -16,3 +16,23 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+
+// Gestion des flèches du carrousel
+let arrowLeft = document.querySelector(".arrow_left");
+arrowLeft.addEventListener("click", function () {console.log(arrowLeft)});
+
+
+let arrowRight = document.querySelector(".arrow_right");
+arrowRight.addEventListener("click", function () {console.log(arrowRight)});
+
+// Gestion des points du carrousel
+let dots = document.querySelectorAll(".dot");
+let bannerImg = document.querySelector(".banner-img");
+
+const bannerArray = [
+	"slide1.jpg",
+	"slide2.jpg",
+	"slide3.jpg",
+	"slide4.png"
+];
+
