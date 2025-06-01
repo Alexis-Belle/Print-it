@@ -1,3 +1,4 @@
+// Gestion JS du caroussel
 const slides = [
 	{
 		"image":"slide1.jpg",
@@ -18,21 +19,45 @@ const slides = [
 ]
 
 // Gestion des flèches du carrousel
-let arrowLeft = document.querySelector(".arrow_left");
-arrowLeft.addEventListener("click", function () {console.log(arrowLeft)});
-
-
-let arrowRight = document.querySelector(".arrow_right");
-arrowRight.addEventListener("click", function () {console.log(arrowRight)});
-
-// Gestion des points du carrousel
-let dots = document.querySelectorAll(".dot");
+// Récupérations des élements html nécessaires du caroussel
+let currentIndex = 0; // Index de base
 let bannerImg = document.querySelector(".banner-img");
+let bannerText = document.querySelector("#banner p");
+let dots = document.querySelectorAll(".dot"); // Les points du carrousel
+let arrowLeft = document.querySelector(".arrow_left");
+let arrowRight = document.querySelector(".arrow_right");
 
-const bannerArray = [
-	"slide1.jpg",
-	"slide2.jpg",
-	"slide3.jpg",
-	"slide4.png"
-];
+// Met à jour les informations src et p du carrousel
+function updateSlide() {
+	let slide = slides[currentIndex];
+	bannerImg.src = "./assets/images/slideshow/" + slide.image;
+	bannerText.innerHTML = slide.tagLine;
+
+	// Boucle sur le "tableau" des dots. Si l'index du dot correspond à celui de l'image affiché (currentIndex) 
+	// il prend la class "dot_selected", sinon il le perd/ne le prend pas
+	dots.forEach((dot, index) => {
+		dot.classList.toggle("dot_selected", index === currentIndex);
+	});
+}
+// Initialisation au démarrage
+updateSlide();
+
+
+// Flèche droite
+arrowRight.addEventListener("click", function() {
+	currentIndex++;
+	if (currentIndex >= slides.length) {
+		currentIndex = 0; // s'il dépasse la fin, revient au début
+	}
+	updateSlide(); // Met à jour les informations
+});
+
+// Flèche gauche
+arrowLeft.addEventListener("click", function() {
+	currentIndex--;
+	if (currentIndex < 0) {
+		currentIndex = slides.length - 1; // s'il dépasse le début, revient à la fin
+	}
+	updateSlide(); // Met à jour les informations
+});
 
